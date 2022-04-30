@@ -10,18 +10,24 @@ export class FetchedList extends HTMLElement {
         this.datalist = this.attachElement('datalist')
         this.listPath = this.getAttribute('list-path')
         this.valuePath = this.getAttribute('value-path')
+        this.valueFrom = this.getAttribute('value-from')
         this.removeOptions = this.getAttribute('remove-options')
 
         this.inputHandler = this.throttle(this.requestOptionsUpdate.bind(this), 500)
         this.connectDatalist()
     }
 
+    get targetInput() {
+        if (this.valueFrom && document.getElementById(this.valueFrom)) return document.getElementById(this.valueFrom)
+        return this.input
+    }
+
     connectedCallback() {
-        this.input.addEventListener('input', this.inputHandler.bind(this))
+        this.targetInput.addEventListener('input', this.inputHandler.bind(this))
     }
 
     disconnectedCallback() {
-        this.input.removeEventListener('input', this.inputHandler.bind(this))
+        this.targetInput.removeEventListener('input', this.inputHandler.bind(this))
     }
 
     requestOptionsUpdate() {
@@ -30,7 +36,7 @@ export class FetchedList extends HTMLElement {
 
     fetchOptions() {
         const url = new URL(this.url, window.location)
-        url.searchParams.set(this.param, this.input.value)
+        url.searchParams.set(this.param, this.targetInput.value)
         return fetch(url.href).then(r => r.json())
     }
 
