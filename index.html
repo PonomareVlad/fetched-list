@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetched List Demo</title>
+    <script src="./index.mjs" type="module"></script>
+</head>
+<body>
+<fetched-list url="http://geodb-free-service.wirefreethought.com/v1/geo/countries?limit=10" param="namePrefix"
+              check="metadata.totalCount" list-path="data" value-path="name">
+    <input type="search" placeholder="Type any Country">
+</fetched-list>
+</body>
+</html>
