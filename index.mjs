@@ -11,6 +11,7 @@ export class FetchedList extends HTMLElement {
         this.listPath = this.getAttribute('list-path')
         this.valuePath = this.getAttribute('value-path')
         this.valueFrom = this.getAttribute('value-from')
+        this.titleCase = this.getAttribute('title-case')
         this.removeOptions = this.getAttribute('remove-options')
 
         this.inputHandler = this.throttle(this.requestOptionsUpdate.bind(this), 500)
@@ -24,10 +25,12 @@ export class FetchedList extends HTMLElement {
 
     connectedCallback() {
         this.targetInput.addEventListener('input', this.inputHandler.bind(this))
+        if (this.titleCase) this.targetInput.addEventListener('keyup', this.toTitleCase.bind(this))
     }
 
     disconnectedCallback() {
         this.targetInput.removeEventListener('input', this.inputHandler.bind(this))
+        this.targetInput.removeEventListener('keyup', this.toTitleCase.bind(this))
     }
 
     requestOptionsUpdate() {
@@ -54,8 +57,7 @@ export class FetchedList extends HTMLElement {
     }
 
     createOption(value) {
-        return this.datalist.querySelector(`option[value="${value}"]`) ||
-            this.datalist.appendChild(Object.assign(document.createElement('option'), {value}))
+        return this.datalist.querySelector(`option[value="${value}"]`) || this.datalist.appendChild(Object.assign(document.createElement('option'), {value}))
     }
 
     removeOption(value) {
@@ -86,6 +88,11 @@ export class FetchedList extends HTMLElement {
                 }, limit);
             }
         }
+    }
+
+    toTitleCase() {
+        return this.targetInput.value =
+            this.targetInput.value.split(/\s+/).map(s => s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join(" ");
     }
 }
 

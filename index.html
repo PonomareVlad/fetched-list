@@ -10,8 +10,8 @@
 </head>
 <body>
 <fetched-list url="http://geodb-free-service.wirefreethought.com/v1/geo/countries?limit=10" param="namePrefix"
-              check="metadata.totalCount" list-path="data" value-path="name">
-    <input type="search" placeholder="Type any Country">
+              check="metadata.totalCount" list-path="data" title-case="true" value-path="name">
+    <input autocapitalize="words" placeholder="Type any Country" type="search">
 </fetched-list>
 </body>
 </html>
