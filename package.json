@@ -1,6 +1,6 @@
 {
   "name": "fetched-list",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Component for live fetching <datalist> options during typing to <input>",
   "module": "index.mjs",
   "main": "index.mjs",
