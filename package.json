@@ -1,0 +1,26 @@
+{
+  "name": "fetched-list",
+  "version": "0.0.1",
+  "description": "Component for live fetching <datalist> options during typing to <input>",
+  "module": "index.mjs",
+  "main": "index.mjs",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PonomareVlad/Fetched-list.git"
+  },
+  "keywords": [
+    "component",
+    "input",
+    "datalist",
+    "fetch",
+    "options",
+    "combobox"
+  ],
+  "author": "PonomareVlad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PonomareVlad/Fetched-list/issues"
+  },
+  "homepage": "https://github.com/PonomareVlad/Fetched-list#readme"
+}
