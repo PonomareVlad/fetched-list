@@ -12,9 +12,10 @@ export class FetchedList extends HTMLElement {
         this.valuePath = this.getAttribute('value-path')
         this.valueFrom = this.getAttribute('value-from')
         this.titleCase = this.getAttribute('title-case')
+        this.initialFetch = this.getAttribute('initial-fetch')
         this.removeOptions = this.getAttribute('remove-options')
 
-        this.inputHandler = this.throttle(this.requestOptionsUpdate.bind(this), 500)
+        this.fetchHandler = this.throttle(this.requestOptionsUpdate.bind(this), 500)
         this.connectDatalist()
     }
 
@@ -24,12 +25,14 @@ export class FetchedList extends HTMLElement {
     }
 
     connectedCallback() {
-        this.targetInput.addEventListener('input', this.inputHandler.bind(this))
+        this.targetInput.addEventListener('input', this.fetchHandler.bind(this))
         if (this.titleCase) this.targetInput.addEventListener('keyup', this.toTitleCase.bind(this))
+        if (this.titleCase && this.initialFetch) this.toTitleCase()
+        if (this.initialFetch) this.fetchHandler()
     }
 
     disconnectedCallback() {
-        this.targetInput.removeEventListener('input', this.inputHandler.bind(this))
+        this.targetInput.removeEventListener('input', this.fetchHandler.bind(this))
         this.targetInput.removeEventListener('keyup', this.toTitleCase.bind(this))
     }
 
