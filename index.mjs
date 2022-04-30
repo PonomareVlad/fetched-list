@@ -12,6 +12,7 @@ export class FetchedList extends HTMLElement {
         this.valuePath = this.getAttribute('value-path')
         this.valueFrom = this.getAttribute('value-from')
         this.titleCase = this.getAttribute('title-case')
+        this.autoSelect = this.getAttribute('auto-select')
         this.initialFetch = this.getAttribute('initial-fetch')
         this.removeOptions = this.getAttribute('remove-options')
 
@@ -27,6 +28,10 @@ export class FetchedList extends HTMLElement {
     connectedCallback() {
         this.targetInput.addEventListener('input', this.fetchHandler.bind(this))
         if (this.titleCase) this.targetInput.addEventListener('keyup', this.toTitleCase.bind(this))
+        if (this.autoSelect) {
+            this.targetInput.addEventListener('blur', this.selectFirstOption.bind(this))
+            this.targetInput.addEventListener('keyup', this.enterKeyHandler.bind(this))
+        }
         if (this.titleCase && this.initialFetch) this.toTitleCase()
         if (this.initialFetch) this.fetchHandler()
     }
@@ -34,6 +39,8 @@ export class FetchedList extends HTMLElement {
     disconnectedCallback() {
         this.targetInput.removeEventListener('input', this.fetchHandler.bind(this))
         this.targetInput.removeEventListener('keyup', this.toTitleCase.bind(this))
+        this.targetInput.removeEventListener('blur', this.selectFirstOption.bind(this))
+        this.targetInput.removeEventListener('keyup', this.enterKeyHandler.bind(this))
     }
 
     requestOptionsUpdate() {
@@ -71,6 +78,11 @@ export class FetchedList extends HTMLElement {
         return this.querySelector(name) || this.appendChild(document.createElement(name))
     }
 
+    selectFirstOption() {
+        const targetOption = this.datalist.querySelector(`option[value*="${this.targetInput.value}"]`)
+        if (targetOption) this.targetInput.value = targetOption.value
+    }
+
     connectDatalist(id = this.id) {
         if (!this.datalist.id) this.datalist.id = id || Math.random().toString(16).slice(2)
         if (this.datalist.id !== this.input.getAttribute('list')) this.input.setAttribute('list', this.datalist.id)
@@ -93,9 +105,12 @@ export class FetchedList extends HTMLElement {
         }
     }
 
+    enterKeyHandler({key} = {}) {
+        return key === "Enter" ? this.selectFirstOption() : null
+    }
+
     toTitleCase() {
-        return this.targetInput.value =
-            this.targetInput.value.split(/\s+/).map(s => s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join(" ");
+        return this.targetInput.value = this.targetInput.value.split(/\s+/).map(s => s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join(" ");
     }
 }
 
