@@ -114,6 +114,4 @@ export class FetchedList extends HTMLElement {
     }
 }
 
-customElements.define('fetched-list', FetchedList)
-
 export default FetchedList
