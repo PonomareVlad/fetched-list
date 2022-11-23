@@ -11,7 +11,7 @@
 <body>
 <fetched-list url="http://geodb-free-service.wirefreethought.com/v1/geo/countries?limit=10" param="namePrefix"
               auto-select="true" check="metadata.totalCount" initial-fetch="true" list-path="data" title-case="true"
-              value-path="name">
+              label-path="code" value-path="name">
     <input autocapitalize="words" placeholder="Type any Country" type="search">
 </fetched-list>
 </body>

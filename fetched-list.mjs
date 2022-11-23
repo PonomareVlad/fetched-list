@@ -3,13 +3,14 @@ export class FetchedList extends HTMLElement {
         super();
 
         this.options = []
+        this.input = this.attachElement('input')
         this.url = this.getAttribute('url')
         this.param = this.getAttribute('param')
         this.check = this.getAttribute('check')
-        this.input = this.attachElement('input')
         this.datalist = this.attachElement('datalist')
         this.listPath = this.getAttribute('list-path')
         this.valuePath = this.getAttribute('value-path')
+        this.labelPath = this.getAttribute('label-path')
         this.valueFrom = this.getAttribute('value-from')
         this.titleCase = this.getAttribute('title-case')
         this.autoSelect = this.getAttribute('auto-select')
@@ -56,18 +57,24 @@ export class FetchedList extends HTMLElement {
     parseOptions(data, initial = []) {
         if (typeof data != 'object' || (this.check && !this.resolvePath(data, this.check))) return initial;
         const items = this.listPath ? this.resolvePath(data, this.listPath) : data;
-        const options = this.valuePath ? items.map(item => this.resolvePath(item, this.valuePath)) : items;
+        const options = this.valuePath ? items.map(item => ({
+            label: this.resolvePath(item, this.labelPath),
+            value: this.resolvePath(item, this.valuePath)
+        })) : items;
         return Array.isArray(options) ? [...new Set(options)] : initial;
     }
 
     fillOptions(options = []) {
-        if (this.removeOptions) this.options.filter(option => !options.includes(option)).forEach(this.removeOption.bind(this))
-        options.filter(option => !this.options.includes(option)).forEach(this.createOption.bind(this))
-        this.options = options
+        const optionsValues = options.map(({value} = {}) => value)
+        if (this.removeOptions) this.options.filter(value =>
+            !optionsValues.includes(value)).forEach(this.removeOption.bind(this))
+        options.filter(({value} = {}) => !this.options.includes(value)).forEach(this.createOption.bind(this))
+        this.options = optionsValues
     }
 
-    createOption(value) {
-        return this.datalist.querySelector(`option[value="${value}"]`) || this.datalist.appendChild(Object.assign(document.createElement('option'), {value}))
+    createOption({label = '', value = ''} = {}) {
+        return this.datalist.querySelector(`option[value="${value}"]`) ||
+            this.datalist.appendChild(Object.assign(document.createElement('option'), {label, value}))
     }
 
     removeOption(value) {
@@ -89,7 +96,8 @@ export class FetchedList extends HTMLElement {
     }
 
     resolvePath(object, path, defaultValue) {
-        return path.split('.').reduce((o, p) => o ? o[p] : defaultValue, object)
+        if (!path || !object) return defaultValue;
+        return path?.split('.')?.reduce((o, p) => o ? o[p] : defaultValue, object)
     }
 
     throttle(callback, limit) {
