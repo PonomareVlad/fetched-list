@@ -94,7 +94,7 @@ export class FetchedList extends HTMLElement {
         const options = this.valuePath ? items.map(item => ({
             label: this.resolvePath(item, this.labelPath),
             value: this.resolvePath(item, this.valuePath)
-        })) : items;
+        })) : items.map(value => ({value}));
         return Array.isArray(options) ? [...new Set(options)] : initial;
     }
 
