@@ -2,7 +2,7 @@
 
 Dependency-free component that implements **live-search** (value suggestion) to any `<input>` element via `<datalist>`
 
-[Demo](https://fetched-list.ponomarevlad.ru)
+[Demo](http://fetched-list.ponomarevlad.ru/demo/)
 
 ## How to use
 
