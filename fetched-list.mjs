@@ -50,8 +50,9 @@ export class FetchedList extends HTMLElement {
 
     fetchOptions() {
         const url = new URL(this.url, window.location)
-        url.searchParams.set(this.param, this.targetInput.value)
-        return fetch(url.href).then(r => r.json())
+        if (this.targetInput && this.targetInput.value && this.targetInput.value.length)
+            url.searchParams.set(this.param, this.targetInput.value)
+        return fetch(url).then(r => r.json())
     }
 
     parseOptions(data, initial = []) {
@@ -96,8 +97,8 @@ export class FetchedList extends HTMLElement {
     }
 
     resolvePath(object, path, defaultValue) {
-        if (!path || !object) return defaultValue;
-        return path?.split('.')?.reduce((o, p) => o ? o[p] : defaultValue, object)
+        if (!object || typeof path !== 'string' || !path.length) return defaultValue;
+        return path.split('.').reduce((o, p) => o ? o[p] : defaultValue, object)
     }
 
     throttle(callback, limit) {
