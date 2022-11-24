@@ -33,8 +33,8 @@ Dependency-free component that implements **live-search** (value suggestion) to 
 <!-- From demo/index.html -->
 <fetched-list
         url="http://geodb-free-service.wirefreethought.com/v1/geo/countries?limit=10"
-        param="namePrefix" check="metadata.totalCount" list-path="data" value-path="name" label-path="code"
-        title-case="true" initial-fetch="true" auto-select="true">
+        param="namePrefix" check="metadata.totalCount" list-path="data" value-path="name"
+        label-path="code" title-case="true" initial-fetch="true" auto-select="true">
     <input autocapitalize="words" placeholder="Type any Country" type="search">
 </fetched-list>
 ```
@@ -43,14 +43,14 @@ Dependency-free component that implements **live-search** (value suggestion) to 
 
 | Property        | Attribute        | Description                                                       |
 |-----------------|------------------|-------------------------------------------------------------------|
-| `autoSelect`    | `auto-select`    | Automatically select most relevant variant from list              |
-| `check`         | `check`          | Absolute JSON path to property that indicate successful response  |
-| `initialFetch`  | `initial-fetch`  | Prefetch an options before input                                  |
-| `labelPath`     | `label-path`     | Relative JSON path to property that contains label of each option |
-| `listPath`      | `list-path`      | Absolute JSON path to property that contains array with options   |
-| `param`         | `param`          | Name of query parameter where to put text from input              |
-| `removeOptions` | `remove-options` | Clear list of options before populating                           |
-| `titleCase`     | `title-case`     | Automatically capitalize first letter when typing                 |
 | `url`           | `url`            | API endpoint for fetching options                                 |
-| `valueFrom`     | `value-from`     | ID of outer input element to be used instead of inner input       |
+| `param`         | `param`          | Name of query parameter where to put text from input              |
+| `check`         | `check`          | Absolute JSON path to property that indicate successful response  |
+| `listPath`      | `list-path`      | Absolute JSON path to property that contains array with options   |
 | `valuePath`     | `value-path`     | Relative JSON path to property that contains value of each option |
+| `labelPath`     | `label-path`     | Relative JSON path to property that contains label of each option |
+| `titleCase`     | `title-case`     | Automatically capitalize first letter when typing                 |
+| `valueFrom`     | `value-from`     | ID of outer input element to be used instead of inner input       |
+| `autoSelect`    | `auto-select`    | Automatically select most relevant variant from list              |
+| `initialFetch`  | `initial-fetch`  | Prefetch an options before input                                  |
+| `removeOptions` | `remove-options` | Clear list of options before populating                           |
