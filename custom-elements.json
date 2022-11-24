@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "2.0.0",
+  "readme": "README.md",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "fetched-list.mjs",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "name": "FetchedList",
+          "tagName": "fetched-list",
+          "attributes": [
+            {
+              "name": "url",
+              "fieldName": "url",
+              "description": "API endpoint for fetching options"
+            },
+            {
+              "name": "param",
+              "fieldName": "param",
+              "description": "Name of query parameter where to put text from input"
+            },
+            {
+              "name": "check",
+              "fieldName": "check",
+              "description": "Absolute JSON path to property that indicate successful response"
+            },
+            {
+              "name": "list-path",
+              "fieldName": "listPath",
+              "description": "Absolute JSON path to property that contains array with options"
+            },
+            {
+              "name": "value-path",
+              "fieldName": "valuePath",
+              "description": "Relative JSON path to property that contains value of each option"
+            },
+            {
+              "name": "label-path",
+              "fieldName": "labelPath",
+              "description": "Relative JSON path to property that contains label of each option"
+            },
+            {
+              "name": "value-from",
+              "fieldName": "valueFrom",
+              "description": "ID of outer input element to be used instead of inner input"
+            },
+            {
+              "name": "title-case",
+              "fieldName": "titleCase",
+              "description": "Automatically capitalize first letter when typing"
+            },
+            {
+              "name": "auto-select",
+              "fieldName": "autoSelect",
+              "description": "Automatically select most relevant variant from list"
+            },
+            {
+              "name": "initial-fetch",
+              "fieldName": "initialFetch",
+              "description": "Prefetch an options before input"
+            },
+            {
+              "name": "remove-options",
+              "fieldName": "removeOptions",
+              "description": "Clear list of options before populating"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "targetInput",
+              "privacy": "public",
+              "description": "Getter for target input element"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": "object",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "input"
+            },
+            {
+              "kind": "field",
+              "name": "url",
+              "description": "API endpoint for fetching options"
+            },
+            {
+              "kind": "field",
+              "name": "param",
+              "description": "Name of query parameter where to put text from input"
+            },
+            {
+              "kind": "field",
+              "name": "check",
+              "description": "Absolute JSON path to property that indicate successful response"
+            },
+            {
+              "kind": "field",
+              "name": "datalist"
+            },
+            {
+              "kind": "field",
+              "name": "listPath"
+            },
+            {
+              "kind": "field",
+              "name": "valuePath"
+            },
+            {
+              "kind": "field",
+              "name": "labelPath"
+            },
+            {
+              "kind": "field",
+              "name": "valueFrom"
+            },
+            {
+              "kind": "field",
+              "name": "titleCase"
+            },
+            {
+              "kind": "field",
+              "name": "autoSelect"
+            },
+            {
+              "kind": "field",
+              "name": "initialFetch"
+            },
+            {
+              "kind": "field",
+              "name": "removeOptions"
+            },
+            {
+              "kind": "field",
+              "name": "fetchHandler"
+            },
+            {
+              "kind": "method",
+              "name": "requestOptionsUpdate",
+              "privacy": "public",
+              "type": "(): Promise<Array>",
+              "description": "Triggers options update lifecycle",
+              "parameters": [],
+              "return": {
+                "description": "Array of current options",
+                "type": "Promise<Array>"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "fetchOptions",
+              "privacy": "public",
+              "type": "(): Promise<any>",
+              "description": "Fetch API endpoint with current parameters",
+              "parameters": [],
+              "return": {
+                "description": "Response data",
+                "type": "Promise<any>"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "parseOptions",
+              "privacy": "public",
+              "type": "(data?: object, initial?: {}): Array<Object>",
+              "description": "Parsing options from data with fallback array",
+              "parameters": [
+                {
+                  "name": "data",
+                  "type": "Object",
+                  "description": "Data object"
+                },
+                {
+                  "name": "initial",
+                  "type": "Array<Object>",
+                  "description": "Fallback array"
+                }
+              ],
+              "return": {
+                "description": "Array of options",
+                "type": "Array<Object>"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "fillOptions",
+              "privacy": "public",
+              "type": "(options?: object): Array<Object>",
+              "description": "Options filling from an array to a datalist",
+              "parameters": [
+                {
+                  "name": "options",
+                  "type": "Array<Object>",
+                  "description": "Array of options"
+                }
+              ],
+              "return": {
+                "description": "Array of options",
+                "type": "Array<Object>"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createOption",
+              "privacy": "public",
+              "type": "({ value, label }?: { value?: string | undefined; label?: string | undefined; }): void",
+              "description": "Adds an option element to datalist if it doesn't exist",
+              "parameters": [
+                {
+                  "name": "{value = '', label = ''}"
+                }
+              ],
+              "return": {
+                "type": "void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeOption",
+              "privacy": "public",
+              "type": "(value: String): void",
+              "description": "Removes an option from datalist",
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": "String",
+                  "description": "Option value"
+                }
+              ],
+              "return": {
+                "type": "void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "attachElement",
+              "privacy": "public",
+              "type": "(name: any): HTMLElement",
+              "description": "Adds an element to host root if it doesn't exist",
+              "parameters": [
+                {
+                  "name": "name",
+                  "description": "Element tag"
+                }
+              ],
+              "return": {
+                "description": "Target element node",
+                "type": "HTMLElement"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "selectOption",
+              "privacy": "public",
+              "type": "(option?: HTMLOptionElement): void",
+              "description": "Sets target option as value of input element",
+              "parameters": [
+                {
+                  "name": "option",
+                  "type": "HTMLOptionElement",
+                  "description": "Target option element"
+                }
+              ],
+              "return": {
+                "type": "void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getFirstOption",
+              "privacy": "public",
+              "type": "(value?: String): HTMLOptionElement|undefined",
+              "description": "Returns first suggested option for target value",
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": "String",
+                  "description": "Target value"
+                }
+              ],
+              "return": {
+                "description": "Suggested option element",
+                "type": "HTMLOptionElement|undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "connectDatalist",
+              "privacy": "public",
+              "type": "(id?: String): void",
+              "description": "Connects datalist to target input element via an ID",
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": "String",
+                  "description": "ID of datalist element"
+                }
+              ],
+              "return": {
+                "type": "void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resolvePath",
+              "privacy": "public",
+              "type": "(object: object | undefined, path: string | undefined, defaultValue: Object): *",
+              "description": "Returns property from object by JSON path",
+              "parameters": [
+                {
+                  "name": "object",
+                  "type": "Object",
+                  "description": "Target object"
+                },
+                {
+                  "name": "path",
+                  "type": "String",
+                  "description": "JSON path"
+                },
+                {
+                  "name": "defaultValue",
+                  "description": "Fallback value"
+                }
+              ],
+              "return": {
+                "description": "Target value",
+                "type": "*"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "throttle",
+              "privacy": "public",
+              "type": "(callback: Function, limit?: number): Function",
+              "description": "Returns wrapper of throttled method",
+              "parameters": [
+                {
+                  "name": "callback",
+                  "type": "Function",
+                  "description": "Target method"
+                },
+                {
+                  "name": "limit",
+                  "type": "Number",
+                  "description": "Throttling time"
+                }
+              ],
+              "return": {
+                "description": "Throttled method",
+                "type": "Function"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "keyboardHandler",
+              "privacy": "public",
+              "type": "({ key }?: { key: String; }): void",
+              "description": "Handler for keyboard events",
+              "parameters": [
+                {
+                  "name": "{key}"
+                }
+              ],
+              "return": {
+                "type": "void"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "toTitleCase",
+              "privacy": "public",
+              "type": "(value?: string): String",
+              "description": "Convert string to Title Case",
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": "String",
+                  "description": "String to conversion"
+                }
+              ],
+              "return": {
+                "description": "Converted string",
+                "type": "String"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "valueToTitleCase",
+              "privacy": "public",
+              "type": "(input?: HTMLInputElement): void",
+              "description": "Set target input value to Title Case",
+              "parameters": [
+                {
+                  "name": "input",
+                  "type": "HTMLInputElement",
+                  "description": "Target input"
+                }
+              ],
+              "return": {
+                "type": "void"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FetchedList",
+          "declaration": {
+            "name": "FetchedList"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "index.mjs",
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "fetched-list",
+          "declaration": {
+            "name": "FetchedList",
+            "module": "fetched-list.mjs"
+          }
+        }
+      ]
+    }
+  ]
+}
