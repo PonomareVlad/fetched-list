@@ -1,6 +1,6 @@
 {
   "name": "fetched-list",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Dependency-free component that implements live-search (value suggestion) to any <input> element via <datalist>",
   "type": "module",
   "main": "index.mjs",
